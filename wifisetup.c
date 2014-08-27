@@ -158,6 +158,10 @@ char *getPassword(char *cmdarg) {
  * \return Zero if operation succeeded, non-zero otherwise
  */
 int main(int argc, char **argv) {
+	if(setuid(0) < 0) {       // Throw away information about suid bit
+		perror("setuid"); // But don't give up on failure
+	}
+
 	if(argc < 2) {
 		printHelp(argv[0]);
 		return 1;
